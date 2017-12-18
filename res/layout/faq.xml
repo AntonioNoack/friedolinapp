@@ -1,0 +1,82 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/faqSite">
+
+    <Button
+        android:id="@+id/back010"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="@string/back_to_main" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/site_pad">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:text="Was bedeuten die Felderfarben im Hauptmenü?"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Für die blauen Funktionen soll oder muss man mindestens einmal angemeldet gewesen sein, rot erklärt sich von selbst. In der App sind wichtige Felder orange, unwichtige grau oder blau."/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="5pt"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:text="Warum ist es riskant, das Passwort zu speichern?"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Weil die App damit einem Finder deines Handys kompletten Zugriff auf deine Prüfungsanmeldungen, usw. gestattet. Ich vermute, dass du das nicht möchtest."/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="5pt"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:text="Was ist noch geplant?"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fehlendes, Stundenplanserweiterung durch eigene Einträge, Offline-Modus aus Cache, eine Raum-Ort-Karte und Routenplaner? (Parkmöglichkeiten/Verkehrauskommen?), Stundenten-Finder auf dieser Karte, Gegenseitiges Suchspiel mit Updates alle n Minuten auf dieser Karte, allgemein eine Spiele-API?..."/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="5pt"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:text="Wie kann ich zu dir Kontakt aufnehmen?"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="antonio-noack@gmx.de, antonio.noack@uni-jena.de, G+, Youtube, zur Not auch Twitter (@User2E32) oder Skype."/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

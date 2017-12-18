@@ -1,0 +1,59 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/personenSite">
+
+    <!-- Scrollen ist schön: keine Begrenzung für die Suchergebnisanzahl! -->
+
+    <Button
+        android:id="@+id/back004"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="@string/back_to_main" />
+
+    <EditText
+        android:id="@+id/persVorname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/vorname"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/persNachname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/nachname"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/persEinr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/einrichtung"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/dropdownPersonFunktion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/chose_function" />
+
+    <Button
+        android:id="@+id/dropdownPersonInExtern"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Intern/Extern" />
+
+    <Button
+        android:id="@+id/personenStartButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Suche starten" />
+
+</LinearLayout>

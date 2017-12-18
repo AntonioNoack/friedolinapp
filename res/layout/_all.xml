@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ViewFlipper
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/viewFlipper">
+        <!-- enthält dann nur noch zwei (/drei) Elemente: (Startfenster) Hauptansicht und Inhalt -->
+
+        <include layout="@layout/_main"/>
+
+        <!-- der Rest wird niemals sichtbar | ich weiß nicht, wie man es besser macht, dass man trotzdem auf die Elemente zugreifen kann... -->
+        <include layout="@layout/modulanmeldung"/>
+        <include layout="@layout/stundenplan"/>
+        <include layout="@layout/veranstaltungen"/>
+        <include layout="@layout/modulbeschreibungen"/>
+        <include layout="@layout/pruefungsanmeldung"/>
+        <include layout="@layout/pruefungen"/>
+        <include layout="@layout/news"/>
+        <include layout="@layout/notenspiegel"/>
+        <include layout="@layout/fortschritt"/>
+        <include layout="@layout/bescheinigungen"/>
+        <include layout="@layout/rueckmeldeinformationen"/>
+
+        <include layout="@layout/vorlesungsverzeichnis"/>
+        <include layout="@layout/modulkataloge"/>
+        <include layout="@layout/einrichtungen"/>
+        <include layout="@layout/personen"/>
+        <include layout="@layout/raumsuche"/>
+        <include layout="@layout/termine"/>
+        <include layout="@layout/heutigeveranstaltungen"/>
+        <include layout="@layout/ausfallendeveranstaltungen"/>
+        <include layout="@layout/detail"/>
+        <include layout="@layout/aboutme"/>
+        <include layout="@layout/faq"/>
+        <include layout="@layout/editdate"/>
+        <include layout="@layout/partey"/>
+
+        <me.noack.antonio.friedomobile.map.MapView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/mapView"/>
+
+    </ViewFlipper>
+</LinearLayout>

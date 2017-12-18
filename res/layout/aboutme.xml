@@ -1,0 +1,83 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/aboutmeSite">
+
+    <Button
+        android:id="@+id/back007"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="@string/back_to_main" />
+
+    <ScrollView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/site_pad">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hallo, wie ihr wisst, schreiben sich Apps (noch) nicht von selbst! Erst mal zu mir selbst:" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="5pt" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="120dp"
+                    android:layout_height="150dp"
+                    app:srcCompat="@drawable/me" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ich, der App-Schreiberling, bin Antonio Noack. Aktuell, Ende 2017 war das, bin ich 20 Jahre alt und studiere im dritten Semester an der FSU Angewandte Informatik, mit einem bisschen Physik.\n~ *Gruselmusik* ~\n\nNächsten Sommer vielleicht ein neues, besser belichtetes Bild ;)" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="5pt" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Wenn ihr meinen Aufwand ein bisschen entschädigen wollt, so für Kekse, Schokoladenvorräte, Unterhaltung, das Hof-Machen für meinen zur Zeit jeweiligen Schwarm, und was man sonst so brauchen kann ;), könnt ihr mir Geld auf Paypal senden. Meine Email ist antonio-noack@gmx.de. Natürlich als Freund, es sei denn ihr seid Paypal auch noch so dankbar für das Umschreiben von 20 Bytes ;). Falls ihr persönlichere Anschläge plant ;), könnt ihr auch eine Nachricht mitschicken, oder ihr sucht im Internet nach mir und dabei noch einiges mehr über mich, so alles was man braucht..." />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="5pt" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Für Verbesserungs- und Erweiterungsvorschläge, Bugreports und ähnliches bin ich offen. Schreibt mir einfach :). Auf Google+, per Email, per Uni-Mail oder Youtube. Bei den anderen Platformen, bei denen ich noch bin, bin ich nicht sonderlich aktiv." />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="5pt" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Diese App ist übrigens nicht meine erste, aber dafür meine erste öffentliche. Wozu habe ich die App eigentlich geschrieben? Friedolin ist für mobile Geräte ziemlich nervig, was sein Layout, Textgrößen und aber auch das Finden von Inhalten betrifft. Ich selbst bin von Stundenplanänderungen kaum betroffen, jedoch bin ich ein paar Wesen begegnet, die etwas sehr unzufrieden waren und das Feature offenbar ab und zu doch mal brauchen. Da ich selbst Friedolin unterwegs kaum nutze, weil es so unerträglich ist, ist eure Mithilfe bezüglich Ideen erwünscht :)" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

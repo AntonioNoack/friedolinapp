@@ -1,0 +1,174 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/name"
+            android:inputType="textPersonName"/>
+
+        <EditText
+            android:id="@+id/editPasswort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/passwort"
+            android:inputType="textPassword"/>
+
+        <CheckBox
+            android:id="@+id/keepLoggedInButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/keep_logged_in_question"/>
+
+        <Button
+            android:id="@+id/loginButton"
+            android:background="@color/colorAccent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/buttonHeute"
+                    android:layout_weight="1"
+                    android:text="@string/today"/>
+
+                <Button
+                    android:id="@+id/buttonStundenplan"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:textColor="@color/white"
+                    android:text="@string/timetable" />
+
+                <Button
+                    android:id="@+id/buttonAusfall"
+                    android:layout_weight="1"
+                    android:text="@string/cancelled" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/buttonTermine"
+                    android:layout_weight="1"
+                    android:text="@string/deadlines" />
+
+                <Button
+                    android:id="@+id/joahButton"
+                    android:layout_weight="1"
+                    android:text="@string/well" />
+
+                <Button
+                    android:id="@+id/notenButton"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:textColor="@color/white"
+                    android:text="Noten" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:textColor="@color/white"
+                    android:text="@string/exams" />
+
+                <Button
+                    android:id="@+id/buttonPersonen"
+                    android:layout_weight="1"
+                    android:text="@string/persons" />
+
+                <Button
+                    android:id="@+id/buttonNews"
+                    android:layout_weight="1"
+                    android:text="@string/news" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/buttonOrte"
+                    android:layout_weight="1"
+                    android:text="@string/places" />
+
+                <Button
+                    android:id="@+id/buttonMap"
+                    android:layout_weight="1"
+                    android:text="@string/map" />
+
+                <Button
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:textColor="@color/white"
+                    android:text="@string/fortschritt" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/buttonFAQ"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/warning"
+                    android:textColor="@color/white"
+                    android:text="@string/faq" />
+
+                <Button
+                    android:id="@+id/modulButton"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:textColor="@color/white"
+                    android:text="@string/module" />
+
+                <Button
+                    android:id="@+id/buttonAboutme"
+                    android:layout_weight="1"
+                    android:text="@string/say_thankyou" />
+
+            </TableRow>
+        </TableLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+        <Button
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:text="@string/no_warrenty"/>
+    </LinearLayout>
+</ScrollView>

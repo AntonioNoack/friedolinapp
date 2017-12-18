@@ -1,0 +1,43 @@
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/heuteSite">
+
+    <!-- TODO Suchfeld fehlt noch -->
+
+    <Button
+        android:id="@+id/back002"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="@string/back_to_main" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/today_change"
+        android:id="@+id/dateSelectHeute"
+        android:background="@color/colorAccent"/>
+
+    <EditText
+        android:id="@+id/heuteSuche"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/suche"
+        android:inputType="textPersonName"
+        android:gravity="center"/>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:stretchColumns="*"
+            android:id="@+id/heute">
+        </TableLayout>
+    </ScrollView>
+</LinearLayout>

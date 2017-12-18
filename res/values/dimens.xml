@@ -1,0 +1,11 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="app_bar_height">200dp</dimen>
+    <dimen name="item_width">200dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="site_pad">5dp</dimen>
+    <dimen name="stuplaHeight">50dp</dimen>
+    <dimen name="stuplaMultiply">15dp</dimen>
+    <dimen name="fortPillar">10dp</dimen>
+    <dimen name="fortBigPillar">50dp</dimen>
+</resources>
