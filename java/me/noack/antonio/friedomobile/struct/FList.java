@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * Created by antonio on 11/20/17.
+ * Created by antonio on 20.11.2017, aber nicht wirklich: in AKISA ist es schon lange Bestandteil
  */
 
 public class FList<I> implements Iterable<I> {
@@ -70,7 +70,7 @@ public class FList<I> implements Iterable<I> {
         return this;
     }
 
-    final String error = "added lists to others are not supposed to be filled again before being cleared!";
+    static final String error = "added lists to others are not supposed to be filled again before being cleared!";
     public void addAll(Collection<I> toAdd){
         if(finalized){throw new RuntimeException(error);}
         for(I i:toAdd) next = next.next = new Node(i);

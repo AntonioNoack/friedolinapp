@@ -1,9 +1,6 @@
 package me.noack.antonio.friedomobile.html;
 
-import android.support.design.internal.ForegroundLinearLayout;
-
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,7 +8,7 @@ import me.noack.antonio.friedomobile.struct.FList;
 import me.noack.antonio.friedomobile.struct.LiveList;
 
 /**
- * Created by antonio on 11/20/17.
+ * Created by antonio on 20.11.2017
  */
 
 public class HTMLElement {

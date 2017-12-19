@@ -5,7 +5,7 @@ import java.util.HashMap;
 import me.noack.antonio.friedomobile.struct.FList;
 
 /**
- * Created by antonio on 11/20/17.
+ * Created by antonio on 20.11.2017
  */
 
 public class HTMLDocument extends HTMLElement {

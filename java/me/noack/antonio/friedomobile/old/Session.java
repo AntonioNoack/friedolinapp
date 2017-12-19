@@ -1,4 +1,4 @@
-package me.noack.antonio.friedomobile.html;
+package me.noack.antonio.friedomobile.old;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -9,11 +9,12 @@ import javax.net.ssl.HttpsURLConnection;
 
 /**
  * Created by antonio on 25.11.2017
+ * closed on 18.12.2017 -> was solved in LoggedConnection
  */
 
 public class Session {
 
-    public String workerURL;
+    /*public String workerURL;
     public String worker, jsessionID;
 
     public Session() throws IOException {
@@ -61,5 +62,5 @@ public class Session {
         }
 
 
-    }
+    }*/
 }

@@ -99,14 +99,9 @@ public class LoggedConnection {
             String cookieName = s.getKey(), cookieValue = s.getValue();
             cookieString = cookieString == null?cookieName+"="+cookieValue:cookieString+"; "+cookieName+"="+cookieValue;
         }
-
-        System.out.println("readcookie "+cookieString);
     }
 
     private void setCookies(HttpsURLConnection con){
-
-        System.out.println("setcookie "+cookieString);
-
         con.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.89 Safari/537.36 OPR/49.0.2725.39");
         con.setRequestProperty("Upgrade-Insecure-Requests", "1");
         con.setRequestProperty("Accept", "text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2");
@@ -195,6 +190,7 @@ public class LoggedConnection {
         } return con;
     }
 
+    // no longer needed
 	/*private void read(HttpsURLConnection con){
 		for(Map.Entry<String, List<String>> i:con.getHeaderFields().entrySet()){
 			System.out.println(i.getKey());

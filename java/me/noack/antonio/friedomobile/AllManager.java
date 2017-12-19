@@ -551,6 +551,9 @@ public class AllManager extends AppCompatActivity {
     }
 
     public void next(final ViewFlipper flipper){
+
+        closeKeyboard();
+
         flipper.setInAnimation(this, R.anim.slide_in_from_right);
         flipper.setOutAnimation(this, R.anim.slide_out_from_right);
 
@@ -558,6 +561,9 @@ public class AllManager extends AppCompatActivity {
     }
 
     public void previous(final ViewFlipper flipper){
+
+        closeKeyboard();
+
         flipper.setInAnimation(this, R.anim.slide_in_from_left);
         flipper.setOutAnimation(this, R.anim.slide_out_from_left);
 
@@ -573,7 +579,6 @@ public class AllManager extends AppCompatActivity {
     public boolean menu(){
         if(pageFlipper.getDisplayedChild() == 0) return false;// weiter links geht nicht
 
-        closeKeyboard();
         previous(pageFlipper);
         return true;
     }
