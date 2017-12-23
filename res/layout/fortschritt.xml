@@ -4,7 +4,29 @@
     android:layout_height="match_parent"
     android:id="@+id/fortschrittsSite">
 
+    <Button
+        android:id="@+id/back013"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="@string/back_to_main" />
+
     <!-- zeigt wie im Original den Stand, ein paar Zusatzinfos(?) und die Modulpunktzahlen an -->
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/fortLazy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            </LinearLayout>
+        </HorizontalScrollView>
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/fortTodo"

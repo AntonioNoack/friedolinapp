@@ -5,6 +5,9 @@ import java.io.InputStream;
 
 import me.noack.antonio.friedomobile.AllManager;
 import me.noack.antonio.friedomobile.NotLoggedInException;
+import me.noack.antonio.friedomobile.html.HTMLInterpreter;
+import me.noack.antonio.friedomobile.html.connection.ConnectionType;
+import me.noack.antonio.friedomobile.html.connection.CookieConnection;
 import me.noack.antonio.friedomobile.html.LiveHTMLInterpreter;
 
 /**
@@ -15,13 +18,13 @@ public final class LiveExtractor {
 
     private static final LiveHTMLInterpreter interpreter = new LiveHTMLInterpreter();
 
-    public void work(final AllManager all, final ElementListener elementListener, final String url, final boolean exklusive) {
-        work(all, elementListener, url, null, exklusive);
+    public void work(final AllManager all, final ElementListener elementListener, final String url, ConnectionType type) {
+        work(all, elementListener, url, null, type);
     }
 
-    public void work(final AllManager all, final ElementListener elementListener, final String url, final Runnable finalky, final boolean exklusive) {
+    public void work(final AllManager all, final ElementListener elementListener, final String url, final Runnable finalky, final ConnectionType type) {
 
-        if(exklusive && all.connection == null){
+        if(type == ConnectionType.LOGGED_IN && all.connection == null){
             throw new NotLoggedInException();
         }
 
@@ -32,11 +35,15 @@ public final class LiveExtractor {
                 @Override
                 public void run() {
                     try {
-                        if(exklusive){
-                            interpreter.interpret(all.connection.get(all, url).getInputStream(), elementListener, finalky);
-                        } else
-                            interpreter.load(url, elementListener, finalky);
-                    } catch (final IOException e){
+                        switch(type){
+                            case WITH_COOKIE:
+                                interpreter.interpret(CookieConnection.get(url, null).getInputStream(), elementListener, finalky);break;
+                            case LOGGED_IN:
+                                interpreter.interpret(all.connection.get(all, url).getInputStream(), elementListener, finalky);break;
+                            case ANONYMOUS:
+                                interpreter.load(url, elementListener, finalky);break;
+                        }
+                    } catch (final IOException|NullPointerException e){
                         elementListener.setLoaded(false);// fehlgeschlagen
                         all.runOnUiThread(new Runnable() {
                             @Override public void run() {

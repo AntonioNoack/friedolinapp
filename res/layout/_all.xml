@@ -16,7 +16,6 @@
         <include layout="@layout/modulanmeldung"/>
         <include layout="@layout/stundenplan"/>
         <include layout="@layout/veranstaltungen"/>
-        <include layout="@layout/modulbeschreibungen"/>
         <include layout="@layout/pruefungsanmeldung"/>
         <include layout="@layout/pruefungen"/>
         <include layout="@layout/news"/>

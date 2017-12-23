@@ -56,12 +56,13 @@ public class LiveHTMLInterpreter {
                     } else if(startchar == '/'){
 
                         String type = s.get(i+2, j-1-(i+2));// s.substring(i+2, j-1);
+                        if(type == null) type = "";
                         if(type.equalsIgnoreCase("br")){
                             nthat = new HTMLElement("br");
                             that.addChild(nthat);
                             elementListener.onElementStarted(nthat);
                             elementListener.onElementFinished(nthat);
-                        } else {
+                        } else if(!"a".equals(type) || that.getType().equals(type)){// die Seite der Module hat überflüssige </a>, die uns sonst zu einer Nullpointer führen
                             while(!type.equals(that.getType())){
                                 that.setContent(s, i, innerHTML, innerHTML.size());
                                 elementListener.onElementFinished(that);
@@ -136,6 +137,7 @@ public class LiveHTMLInterpreter {
                         if(s.get(k-2)=='/' || that.getType().equals("link") || that.getType().equals("br") || that.getType().equals("img")){
                             elementListener.onElementFinished(that);
                             that = that.parent();
+                            if(d!=' ') innerHTML.add(' ');
                         } else {
                             that.setContentStart(k, innerHTML.size());
                         }

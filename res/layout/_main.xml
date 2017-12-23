@@ -78,7 +78,7 @@
                     android:text="@string/deadlines" />
 
                 <Button
-                    android:id="@+id/joahButton"
+                    android:id="@+id/buttonParty"
                     android:layout_weight="1"
                     android:text="@string/well" />
 
@@ -96,6 +96,7 @@
                 android:layout_height="wrap_content">
 
                 <Button
+                    android:id="@+id/buttonExams"
                     android:layout_weight="1"
                     android:backgroundTint="@color/colorPrimaryDark"
                     android:textColor="@color/white"
@@ -128,6 +129,7 @@
                     android:text="@string/map" />
 
                 <Button
+                    android:id="@+id/buttonFortschritt"
                     android:layout_weight="1"
                     android:backgroundTint="@color/colorPrimaryDark"
                     android:textColor="@color/white"
@@ -147,7 +149,7 @@
                     android:text="@string/faq" />
 
                 <Button
-                    android:id="@+id/modulButton"
+                    android:id="@+id/buttonModule"
                     android:layout_weight="1"
                     android:backgroundTint="@color/colorPrimaryDark"
                     android:textColor="@color/white"

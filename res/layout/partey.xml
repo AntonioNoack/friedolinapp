@@ -1,11 +1,58 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/partySite">
 
-    <TextView
-        android:id="@+id/textView2"
+    <Button
+        android:id="@+id/back014"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Die Liste für Spiele, Partys, Grüppchen, Feiern, usw.; noch im Aufbau!" />
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="@string/back_to_main" />
+
+    <Button
+        android:id="@+id/partyReload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="@string/force_refresh" />
+
+    <Button
+        android:id="@+id/partyCreate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:text="@string/create_party" />
+
+    <EditText
+        android:id="@+id/partySearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/suche"
+        android:inputType="textPersonName"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/partyList"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </ScrollView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorTransparent"
+        android:text="@string/partytitle" />
+
+    <!-- später auch für Spiele... -->
+
 </LinearLayout>

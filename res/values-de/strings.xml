@@ -45,4 +45,25 @@
     <string name="fortschritt">Fortschritt</string>
     <string name="exams">Prüfungen</string>
     <string name="well">... Joah ...</string>
+    <string name="gonnaLogIn">Versuch, dich anzumelden...</string>
+    <string name="partytitle">Die Liste für Partys, Grüppchen, Feiern, usw.\n100% inoffiziell!</string>
+    <string name="create_party">Partys bearbeiten</string>
+    <string name="choose_party">Welche Party?</string>
+    <string name="datum">Datum</string>
+    <string name="beschreibung">Beschreibung</string>
+    <string name="slot_1_4">Slot, 1-4</string>
+    <string name="start">Start</string>
+    <string name="ende">Ende</string>
+    <string name="neue_party">Neue Party</string>
+    <string name="adresse">Adresse</string>
+    <string name="in_allem">In allem, die Liste ist aber noch unvollständig!</string>
+    <string name="montag">Montag</string>
+    <string name="dienstag">Dienstag</string>
+    <string name="mittwoch">Mittwoch</string>
+    <string name="donnerstag">Donnerstag</string>
+    <string name="freitag">Freitag</string>
+    <string name="samstag">Samstag</string>
+    <string name="sonntag">Sonntag</string>
+    <string name="veranstaltungs_id">Veranstaltungs-ID</string>
+    <string name="semester">Semester</string>
 </resources>

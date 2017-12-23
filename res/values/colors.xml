@@ -6,5 +6,6 @@
     <color name="colorTransparent">#37ffffff</color>
     <color name="colorLine">#999</color>
     <color name="white">#fff</color>
+    <color name="green">#149423</color>
     <color name="warning">#a40101</color>
 </resources>

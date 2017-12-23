@@ -10,12 +10,17 @@ import android.widget.TextView;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.GregorianCalendar;
 import java.util.Set;
 
 import me.noack.antonio.friedomobile.AllManager;
 import me.noack.antonio.friedomobile.R;
+import me.noack.antonio.friedomobile.party.Maths;
+import me.noack.antonio.friedomobile.party.Party;
+import me.noack.antonio.friedomobile.party.SendMessage;
 import me.noack.antonio.friedomobile.struct.FList;
 
 /**
@@ -159,11 +164,11 @@ public class TerminPlan {
         }
     }
 
-    public String num(int i){
+    public static String num(int i){
         return i<10?"0"+i:""+i;
     }
 
-    public String time(int i){
+    public static String time(int i){
         int p = i&3;
         return num(i>>2)+":"+(p<2?p<1?"00":"15":p<3?"30":"45");
     }
@@ -179,48 +184,74 @@ public class TerminPlan {
         all.editDateAll.setChecked(true);
         all.editDateRow.setText((termin.getRow()+1)+"");
         double[] hsv = toHSV(termin.getColor());
-        System.out.println(hsv[0]+" "+hsv[1]+" "+hsv[2]);
         all.editDateH.setProgress((int) (hsv[0]*1000));
         all.editDateS.setProgress((int) (hsv[1]*1000));
         all.editDateV.setProgress((int) (hsv[2]*1000));
+        int tcol = termin.isDark()?-1:0xff000000;
+        for(TextView v:all.editDate) v.setTextColor(tcol);
+
+        all.editDateDate.setVisibility(View.GONE);
+        all.editDateAll.setVisibility(View.VISIBLE);
 
         all.showChild(R.id.editDate);
 
     }
 
-    private static Termin editing;
+    public static Termin editing;
     public static TerminPlan actualPlan;
 
     public static final View.OnClickListener delete = new View.OnClickListener() {
         @Override public void onClick(View view) {
             AllManager all = AllManager.instance;
-            SharedPreferences.Editor edit = all.pref.edit();
-            all.closeKeyboard();
-            actualPlan.remove(editing);
-            actualPlan.save(edit, all.pref);
-            edit.commit();
-            actualPlan.display(all, all.stupla);
-            all.menu();
+
+            if(editing == null){// Party
+
+                // ein Datum, das nicht existiert -> wird nicht angezeigt :) und zufällig auf dem Server irgendwann gelöscht
+                Calendar cal = GregorianCalendar.getInstance();
+                cal.add(Calendar.MONTH, 6);
+                all.editDateDate.setText((cal.get(Calendar.DAY_OF_MONTH))+"."+(cal.get(Calendar.MONTH)+1));
+                save.onClick(view);
+
+            } else {
+                SharedPreferences.Editor edit = all.pref.edit();
+                all.closeKeyboard();
+                actualPlan.remove(editing);
+                actualPlan.save(edit, all.pref);
+                edit.commit();
+                actualPlan.display(all, all.stupla);
+                all.menu();
+            }
         }
     }, save = new View.OnClickListener() {// TODO muss noch testen, ob es für alle gleichen Namens gelten soll und welche das ggf sind
         @Override public void onClick(View view) {
+
             AllManager all = AllManager.instance;
-            SharedPreferences.Editor edit = all.pref.edit();
+            boolean isParty = editing == null;
+
+            SharedPreferences.Editor edit = isParty?null:all.pref.edit();
 
             all.closeKeyboard();
 
-            boolean a = all.editDateAll.isChecked();// alle mit gleichem Namen UND gleichem Startdatum und gleichem Enddatum werden überschrieben
-            ArrayList<Termin> toSave = new ArrayList<>();
+            boolean applyToAll = !isParty && all.editDateAll.isChecked();// alle mit gleichem Namen UND gleichem Startdatum und gleichem Enddatum werden überschrieben
+
+            String
+                    n = all.editDateTitle.getText().toString(),
+                    t = all.editDateDesc.getText().toString();
+            int
+                    s = toTime(all.editDateStart.getText().toString(), isParty?0:editing.getStart()),
+                    d = toTime(all.editDateEnd.getText().toString(), isParty?s+8:editing.getEnd()) - s,// endlich den Fehler hier gefunden :D
+                    r = toInt(all.editDateRow.getText().toString(), isParty?1:editing.getRow()+1)-1,
+                    c = rgb(all);
+
+            if(isParty){
+                SendMessage.write(all, new Party(r, 0, 0, s, d, r, c, null, n, t));
+                return;
+            }
 
             String oldTitle = editing.getName();
             int oldStart = editing.getStart(), oldDura = editing.getDuration();
 
-            String n = all.editDateTitle.getText().toString(), t = all.editDateDesc.getText().toString();
-            int s = toTime(all.editDateStart.getText().toString(), editing.getStart()),
-                    d = toTime(all.editDateEnd.getText().toString(), editing.getEnd()) - editing.getStart(),
-                    r = toInt(all.editDateRow.getText().toString(), editing.getRow()+1)-1, c = rgb(all);
-
-            if(a){
+            if(applyToAll){
                 for(String week:all.pref.getString("9_weeks", null).split("\0")){
                     String[] wek = week.split("\n");// name, value
                     for(int i=0;i<7;i++){
@@ -291,7 +322,7 @@ public class TerminPlan {
     }
 
     static final double f255 = 1./255., deg60 = 1./6., fdeg60=6;
-    static double[] toHSV(int rgb){
+    public static double[] toHSV(int rgb){
         double r = (rgb>>16)&255, g = (rgb>>8)&255, b = rgb&255;
         r*=f255;g*=f255;b*=f255;
         double max = Math.max(r, Math.max(g, b)), min = Math.min(r, Math.min(g, b)), delta = max-min;
@@ -331,9 +362,12 @@ public class TerminPlan {
 
     public static final SeekBar.OnSeekBarChangeListener seekli = new SeekBar.OnSeekBarChangeListener() {
         @Override public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-            int rgb = rgb(AllManager.instance);
-            AllManager.instance.closeKeyboard();
-            AllManager.instance.editDateConfig.setBackgroundColor(Color.rgb((rgb>>16)&255, (rgb>>8)&255, rgb&255));
+            AllManager all = AllManager.instance;
+            int rgb = rgb(all);
+            all.closeKeyboard();
+            all.editDateConfig.setBackgroundColor(Color.rgb((rgb>>16)&255, (rgb>>8)&255, rgb&255));
+            int tcol = Maths.isDark(rgb)?-1:0xff000000;
+            for(TextView v:all.editDate) v.setTextColor(tcol);
         }
 
         @Override public void onStartTrackingTouch(SeekBar seekBar) {}

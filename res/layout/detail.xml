@@ -12,13 +12,26 @@
         android:background="@color/colorPrimary"
         android:text="@string/back" />
 
-    <LinearLayout
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/details"
+                android:padding="@dimen/site_pad"/>
+        </HorizontalScrollView>
+    </ScrollView>
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/details"
-        android:padding="@dimen/site_pad">
-
-    </LinearLayout>
+        android:text="Ideen für ein schöneres und gleichzeitig praktisches Design? Meldet euch bei mir, antonio-noack@gmx.de" />
 
 </LinearLayout>

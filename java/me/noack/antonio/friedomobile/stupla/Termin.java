@@ -2,6 +2,8 @@ package me.noack.antonio.friedomobile.stupla;
 
 import android.content.SharedPreferences;
 
+import me.noack.antonio.friedomobile.party.Maths;
+
 /**
  * Created by antonio on 17.12.2017
  */
@@ -18,6 +20,10 @@ public class Termin {
         this.name = title;
         this.desc = etc;
         this.color = color;
+    }
+
+    public boolean isDark(){
+        return Maths.isDark(color);
     }
 
     public Termin(String date, String index, SharedPreferences pref){

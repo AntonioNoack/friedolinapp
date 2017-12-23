@@ -58,7 +58,7 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Wenn ihr meinen Aufwand ein bisschen entschädigen wollt, so für Kekse, Schokoladenvorräte, Unterhaltung, das Hof-Machen für meinen zur Zeit jeweiligen Schwarm, und was man sonst so brauchen kann ;), könnt ihr mir Geld auf Paypal senden. Meine Email ist antonio-noack@gmx.de. Natürlich als Freund, es sei denn ihr seid Paypal auch noch so dankbar für das Umschreiben von 20 Bytes ;). Falls ihr persönlichere Anschläge plant ;), könnt ihr auch eine Nachricht mitschicken, oder ihr sucht im Internet nach mir und dabei noch einiges mehr über mich, so alles was man braucht..." />
+                android:text="Wenn ihr meinen Aufwand ein bisschen entschädigen wollt, so für Kekse, Schokoladenvorräte, Unterhaltung, das Hof-Machen für meinen zur Zeit jeweiligen Schwarm, und was man sonst so brauchen kann ;), könnt ihr mir Geld auf Paypal senden. Meine Email ist antonio-noack@gmx.de. Natürlich als Freund, es sei denn ihr seid Paypal auch noch so dankbar für das Umschreiben von 20 Bytes ;). Falls ihr persönlichere Anschläge plant ;), könnt ihr auch eine Nachricht mitschicken, oder ihr sucht im Internet nach mir und findet dabei noch einiges mehr über mich: so alles was man braucht..." />
 
             <Space
                 android:layout_width="match_parent"

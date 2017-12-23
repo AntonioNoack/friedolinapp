@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="Name"/>
+            android:hint="@string/name"/>
 
         <EditText
             android:id="@+id/raumSucheEinrichtung"
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="Einrichtung"/>
+            android:hint="@string/einrichtung"/>
 
         <EditText
             android:id="@+id/raumSucheAdresse"
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="Adresse"/>
+            android:hint="@string/adresse"/>
 
         <EditText
             android:id="@+id/raumSucheGenerell"
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="In allem"/>
+            android:hint="@string/in_allem"/>
 
         <LinearLayout
             android:orientation="vertical"

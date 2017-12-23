@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import me.noack.antonio.friedomobile.AllManager;
 import me.noack.antonio.friedomobile.struct.FList;
 import me.noack.antonio.friedomobile.struct.LiveList;
 
@@ -73,6 +74,20 @@ public class HTMLElement {
 
     public void addAttribute(String kopf, String wert) {
         if(attributes == null) attributes = new HashMap<>();
+        if("a".equalsIgnoreCase(type) && "href".equalsIgnoreCase(kopf)){
+            int asii = wert.indexOf("asi=");
+            if(asii > -1){
+                int asie = wert.indexOf('&', asii+4), asix = wert.indexOf('#', asii+4);
+                if(asix > -1 && (asie < 0 || asix < asie)) asie = asix;
+
+                String asi;
+                if(asie > -1){
+                    asi = wert.substring(asii+4, asie);
+                } else if(asii+4 < wert.length()) asi = wert.substring(asii+4);
+                else asi = null;
+                if(asi != null) AllManager.instance.setAsi(asi);
+            }
+        }
         attributes.put(kopf, wert);
     }
 
@@ -127,7 +142,7 @@ public class HTMLElement {
 
     public String getContent(){
         if(innerHTML == null && innerHTMLContentStart < innerHTMLContentEnd)
-            innerHTML = new String(innerHTMLc, innerHTMLContentStart, innerHTMLContentEnd-innerHTMLContentStart).replace("&nbsp;"," ").trim();
+            innerHTML = rep(new String(innerHTMLc, innerHTMLContentStart, innerHTMLContentEnd-innerHTMLContentStart));
         innerHTMLc = null;// RAM freigeben
         return innerHTML;
     }
@@ -159,8 +174,24 @@ public class HTMLElement {
             char[] data = new char[innerHTMLContentEnd-innerHTMLContentStart];
             for(int k=innerHTMLContentStart,l=0;k<innerHTMLContentEnd;l++,k++){
                 data[l] = s2.get(k);
-            } innerHTML = new String(data);
+            }
+
+            innerHTML = rep(new String(data));
+            innerHTMLContentStart = innerHTMLContentEnd;// falls innerHTML=null | als Längenangabe ist es dank .trim() und .rep(nbsp) eh nicht geeignet
         }// else null
+    }
+
+    public final String rep(String s){
+        s = s
+                .replace("&nbsp;"," ")
+                .replace("&auml;","ä")
+                .replace("&ouml;","ö")
+                .replace("&uuml;","ü")
+                .replace("&Auml;","Ä")
+                .replace("&Ouml;","Ö")
+                .replace("&Uuml;","Ü")
+                .trim();
+        return s.length()==0?null:s;
     }
 }
 

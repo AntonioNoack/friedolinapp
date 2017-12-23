@@ -70,6 +70,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:text="Wieso muss ich mich um eine Party zu erstellen einloggen, wenn es doch inoffiziell ist?"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Damit ich den Hinweis habe, dass ihr echt seid und euer Name auch wirklich eurer ist. Die einzig zuverlässige Identifizierung bräuchte, dass ihr mir euer Passwort schickt, d.h. spammt den Terminkalender nicht voll, wenn es einfach und sicher bleiben soll! :)"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="5pt"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:text="Wie kann ich zu dir Kontakt aufnehmen?"/>
 
             <TextView

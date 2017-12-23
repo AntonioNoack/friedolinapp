@@ -1,14 +1,9 @@
 package me.noack.antonio.friedomobile.extract.live;
 
-import android.icu.util.RangeValueIterator;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import me.noack.antonio.friedomobile.html.HTMLDocument;
 import me.noack.antonio.friedomobile.html.HTMLElement;
-import me.noack.antonio.friedomobile.struct.FList;
-import me.noack.antonio.friedomobile.struct.Twig;
 
 /**
  * Created by antonio on 18.12.2017

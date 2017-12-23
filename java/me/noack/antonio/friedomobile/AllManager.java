@@ -35,19 +35,25 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 
+import me.noack.antonio.friedomobile.extract.live.LazyFortschrittsExtractor;
+import me.noack.antonio.friedomobile.extract.live.modul.Module;
 import me.noack.antonio.friedomobile.extract.live.NameExtractor;
 import me.noack.antonio.friedomobile.extract.live.SelectExtractor;
-import me.noack.antonio.friedomobile.extract.live.AusfallExtractor;
+import me.noack.antonio.friedomobile.extract.live.heute.AusfallExtractor;
 import me.noack.antonio.friedomobile.extract.Extractor;
 import me.noack.antonio.friedomobile.extract.live.ElementListener;
-import me.noack.antonio.friedomobile.extract.live.HeuteExtractor;
+import me.noack.antonio.friedomobile.extract.live.heute.HeuteExtractor;
 import me.noack.antonio.friedomobile.extract.NewsExtractor;
 import me.noack.antonio.friedomobile.extract.TerminExtractor;
 import me.noack.antonio.friedomobile.extract.live.LiveExtractor;
-import me.noack.antonio.friedomobile.html.LoggedConnection;
+import me.noack.antonio.friedomobile.html.connection.ConnectionType;
+import me.noack.antonio.friedomobile.html.connection.LoggedConnection;
 import me.noack.antonio.friedomobile.map.Raum10;
+import me.noack.antonio.friedomobile.party.Party;
 import me.noack.antonio.friedomobile.stupla.Stundenplan;
 import me.noack.antonio.friedomobile.stupla.TerminPlan;
+
+import static me.noack.antonio.friedomobile.stupla.TerminPlan.seekli;
 
 /**
  * Created by antonio on 20.11.2017
@@ -59,20 +65,24 @@ public class AllManager extends AppCompatActivity {
 
     public static final float minDragForMotion = 30;
     public static AllManager instance;
+    private String asi;// needed for the Fortschritts-page
+    public int warnColor;
 
     public ViewFlipper pageFlipper, wochenFlipper, wochentagFlipper;
-    public LinearLayout newsContent, ausfall, details, detailsSite, termine, raumErgbnisse, editDateConfig, fortDone, fortTodo;
+    public LinearLayout newsContent, ausfall, details, detailsSite, termine, raumErgbnisse, editDateConfig, fortDone, fortTodo, fortLazy, partyList;
     public LinearLayout[] stupla;
+    public TextView[] editDate;
     public TableLayout heute;
     private Extractor newsEx, terminEx;
     public LiveExtractor liveEx;
-    private ElementListener ausfallEx, heuteEx;
+    private ElementListener ausfallEx, heuteEx, fortEx;
     private SelectExtractor raumSelect;
     private GLSurfaceView mapView;
     public Button loginButton;
     public CheckBox keepLoggedInButton, editDateAll;
     public EditText raumName, raumAdresse, raumEinrichtung, raumGenerell,
-        editName, editPasswort, editDateTitle, editDateDesc, editDateStart, editDateEnd, editDateRow,
+        editName, editPasswort, editDateTitle, editDateDesc, editDateStart, editDateEnd, editDateRow, editDateDate,
+        modulID, modulSm,
         persVorname, persNachname, persEinr, persFunc, persInt;
 
     public SeekBar editDateH, editDateS, editDateV;
@@ -99,6 +109,13 @@ public class AllManager extends AppCompatActivity {
         super.onDestroy();
     }
 
+    public void setAsi(String asi){
+        this.asi = asi;
+        SharedPreferences.Editor edit = this.pref.edit();
+        edit.putString("asi", asi);
+        edit.commit();
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,9 +124,14 @@ public class AllManager extends AppCompatActivity {
 
         instance = this;
 
+        TerminPlan.height = getResources().getDimensionPixelSize(R.dimen.stuplaHeight);
+        TerminPlan.multiply = getResources().getDimensionPixelSize(R.dimen.stuplaMultiply);
+
+        warnColor = getResources().getColor(R.color.warning);
+
         pageFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
         newsContent = (LinearLayout) findViewById(R.id.newsContent);
-        editDateConfig = (LinearLayout) findViewById(R.id.editDateConfig);
+        editDateConfig = (LinearLayout) findViewById(R.id.editTerminConfig);
         heute = (TableLayout) findViewById(R.id.heute);
         ausfall = (LinearLayout) findViewById(R.id.ausfall);
         details = (LinearLayout) findViewById(R.id.details);
@@ -126,19 +148,25 @@ public class AllManager extends AppCompatActivity {
         editName = (EditText) findViewById(R.id.editName);
         editPasswort = (EditText) findViewById(R.id.editPasswort);
         keepLoggedInButton = (CheckBox) findViewById(R.id.keepLoggedInButton);
-        editDateTitle = (EditText) findViewById(R.id.editDateTitle);
-        editDateDesc = (EditText) findViewById(R.id.editDateDesc);
-        editDateStart = (EditText) findViewById(R.id.editDateStart);
-        editDateEnd = (EditText) findViewById(R.id.editDateEnd);
-        editDateAll = (CheckBox) findViewById(R.id.editDateAll);
-        editDateRow = (EditText) findViewById(R.id.editDateRow);
+        editDateTitle = (EditText) findViewById(R.id.editTerminTitle);
+        editDateDesc = (EditText) findViewById(R.id.editTerminDesc);
+        editDateStart = (EditText) findViewById(R.id.editTerminStart);
+        editDateEnd = (EditText) findViewById(R.id.editTerminEnd);
+        editDateAll = (CheckBox) findViewById(R.id.editTerminAll);
+        editDateRow = (EditText) findViewById(R.id.editTerminRow);
+        editDateDate = (EditText) findViewById(R.id.editTerminDate);
         examText = (TextView) findViewById(R.id.examText);
         persVorname = (EditText) findViewById(R.id.persVorname);
         persNachname = (EditText) findViewById(R.id.persNachname);
         persEinr = (EditText) findViewById(R.id.persEinr);
-        editDateH = (SeekBar) findViewById(R.id.editDateH);
-        editDateS = (SeekBar) findViewById(R.id.editDateS);
-        editDateV = (SeekBar) findViewById(R.id.editDateV);
+        editDateH = (SeekBar) findViewById(R.id.editTerminH);
+        editDateS = (SeekBar) findViewById(R.id.editTerminS);
+        editDateV = (SeekBar) findViewById(R.id.editTerminV);
+        editDate = new TextView[]{
+                editDateTitle, editDateDesc,
+                editDateStart, editDateEnd,
+                editDateDate, editDateRow, editDateAll
+        };
         stupla = new LinearLayout[]{
                 (LinearLayout) findViewById(R.id.stupla0),
                 (LinearLayout) findViewById(R.id.stupla1),
@@ -146,11 +174,16 @@ public class AllManager extends AppCompatActivity {
                 (LinearLayout) findViewById(R.id.stupla3),
                 (LinearLayout) findViewById(R.id.stupla4),
         };
+        fortLazy = (LinearLayout) findViewById(R.id.fortLazy);
+        modulID = (EditText) findViewById(R.id.modulKatalogID);
+        modulSm = (EditText) findViewById(R.id.modulKatalogSm);
+        partyList = (LinearLayout) findViewById(R.id.partyList);
 
         heuteEx = new HeuteExtractor();
         ausfallEx = new AusfallExtractor();
         newsEx = new NewsExtractor();
         terminEx = new TerminExtractor();
+        fortEx = new LazyFortschrittsExtractor();
         liveEx = new LiveExtractor();
 
         final AllManager all = this;
@@ -241,14 +274,15 @@ public class AllManager extends AppCompatActivity {
         ((EditText) findViewById(R.id.raumSucheEinrichtung)).addTextChangedListener(raumSuchAktivator);
         ((EditText) findViewById(R.id.raumSucheGenerell)).addTextChangedListener(raumSuchAktivator);
 
-        editDateH.setOnSeekBarChangeListener(TerminPlan.seekli);
-        editDateS.setOnSeekBarChangeListener(TerminPlan.seekli);
-        editDateV.setOnSeekBarChangeListener(TerminPlan.seekli);
+        editDateH.setOnSeekBarChangeListener(seekli);
+        editDateS.setOnSeekBarChangeListener(seekli);
+        editDateV.setOnSeekBarChangeListener(seekli);
 
-        findViewById(R.id.editDateDelete).setOnClickListener(TerminPlan.delete);
-        findViewById(R.id.editDateSave).setOnClickListener(TerminPlan.save);
+        findViewById(R.id.editTerminDelete).setOnClickListener(TerminPlan.delete);
+        findViewById(R.id.editTerminSave).setOnClickListener(TerminPlan.save);
         findViewById(R.id.stuplaKnopf).setOnClickListener(TerminPlan.newTermin);
 
+        // alle Zurück-Knöpfe
         View.OnClickListener back = new View.OnClickListener() {
             @Override public void onClick(View view) {
                 menu();
@@ -266,6 +300,9 @@ public class AllManager extends AppCompatActivity {
         findViewById(R.id.back010).setOnClickListener(back);
         findViewById(R.id.back011).setOnClickListener(back);
         findViewById(R.id.back012).setOnClickListener(back);
+        findViewById(R.id.back013).setOnClickListener(back);
+        findViewById(R.id.back014).setOnClickListener(back);
+        findViewById(R.id.back015).setOnClickListener(back);
 
         keepLoggedInButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -287,6 +324,7 @@ public class AllManager extends AppCompatActivity {
         });
 
         pref = getPreferences(Context.MODE_PRIVATE);
+        asi = pref.getString("asi", "");// a special key for the Fortschritts-page
         String pwd = pref.getString("q", ""), nme = pref.getString("p", "");
         editName.setText(nme);
         editPasswort.setText(pwd);
@@ -320,7 +358,7 @@ public class AllManager extends AppCompatActivity {
                     @Override public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                         String date = day+"."+(month+1)+"."+year;
                         ausfall.removeAllViews();
-                        liveEx.work(all, ausfallEx, "state=currentLectures&type=1&next=CurrentLectures.vm&nextdir=ressourcenManager&navigationPosition=functions%2CcanceledLectures&breadcrumb=canceledLectures&topitem=locallinks&subitem=canceledLectures&&HISCalendar_Date="+date+"&asi=", false);
+                        liveEx.work(all, ausfallEx, "state=currentLectures&type=1&next=CurrentLectures.vm&nextdir=ressourcenManager&navigationPosition=functions%2CcanceledLectures&breadcrumb=canceledLectures&topitem=locallinks&subitem=canceledLectures&&HISCalendar_Date="+date+"&asi=", ConnectionType.ANONYMOUS);
                     }
                 }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
                 dia.show();
@@ -336,7 +374,7 @@ public class AllManager extends AppCompatActivity {
                     @Override public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                         String date = day+"."+(month+1)+"."+year;
                         ausfall.removeAllViews();
-                        liveEx.work(all, heuteEx, "state=currentLectures&type=0&next=CurrentLectures.vm&nextdir=ressourcenManager&navigationPosition=functions%2CcurrentLectures&breadcrumb=currentLectures&topitem=locallinks&subitem=currentLectures&&HISCalendar_Date="+date+"&asi=", false);
+                        liveEx.work(all, heuteEx, "state=currentLectures&type=0&next=CurrentLectures.vm&nextdir=ressourcenManager&navigationPosition=functions%2CcurrentLectures&breadcrumb=currentLectures&topitem=locallinks&subitem=currentLectures&&HISCalendar_Date="+date+"&asi=", ConnectionType.ANONYMOUS);
                     }
                 }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
                 dia.show();
@@ -366,13 +404,13 @@ public class AllManager extends AppCompatActivity {
 
         findViewById(R.id.buttonHeute).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
-                liveEx.work(all, heuteEx, "state=currentLectures&type=0&next=CurrentLectures.vm&nextdir=ressourcenManager&navigationPosition=functions%2CcurrentLectures&breadcrumb=currentLectures&topitem=locallinks&subitem=currentLectures&asi=", false);
+                liveEx.work(all, heuteEx, "state=currentLectures&type=0&next=CurrentLectures.vm&nextdir=ressourcenManager&navigationPosition=functions%2CcurrentLectures&breadcrumb=currentLectures&topitem=locallinks&subitem=currentLectures&asi=", ConnectionType.ANONYMOUS);
                 open(R.id.heuteSite);}
         });
 
         findViewById(R.id.buttonAusfall).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
-                liveEx.work(all, ausfallEx, "state=currentLectures&type=1&next=CurrentLectures.vm&nextdir=ressourcenManager&navigationPosition=functions%2CcanceledLectures&breadcrumb=canceledLectures&topitem=locallinks&subitem=canceledLectures&asi=", false);
+                liveEx.work(all, ausfallEx, "state=currentLectures&type=1&next=CurrentLectures.vm&nextdir=ressourcenManager&navigationPosition=functions%2CcanceledLectures&breadcrumb=canceledLectures&topitem=locallinks&subitem=canceledLectures&asi=", ConnectionType.ANONYMOUS);
                 open(R.id.ausfallSite);}
         });
 
@@ -421,6 +459,24 @@ public class AllManager extends AppCompatActivity {
                 open(R.id.faqSite);}
         });
 
+        // https://friedolin.uni-jena.de/qisserver/rds?state=studienmatrixStudent&next=tree.vm&nextdir=qispos/studienmatrix/student&navigationPosition=functions%2CstudienmatrixStudent&breadcrumb=studienfortschritt_menu&topitem=functions&subitem=studienmatrixStudent&asi=6bXpew.rGmjbpfGKKJ5H
+
+        findViewById(R.id.buttonFortschritt).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View view) {
+                loginLogic(new Runnable() {
+                    @Override
+                    public void run() {
+                        liveEx.work(all, fortEx, "state=studienmatrixStudent&next=tree.vm&nextdir=qispos/studienmatrix/student&navigationPosition=functions%2CstudienmatrixStudent&breadcrumb=studienfortschritt_menu&topitem=functions&subitem=studienmatrixStudent&asi="+asi, null, ConnectionType.LOGGED_IN);
+                        all.runOnUiThread(new Runnable() {
+                            @Override public void run() {
+                                open(R.id.fortschrittsSite);
+                            }
+                        });
+                    }
+                }, false, null);
+            }
+        });
+
         findViewById(R.id.buttonMap).setOnClickListener(new View.OnClickListener() {// TODO reenable and build that map...
             @Override public void onClick(View view) {
                 info(R.string.not_supported);
@@ -428,17 +484,23 @@ public class AllManager extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.joahButton).setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View view) {
-                open(R.id.partySite);
-            }
-        });
+        Party.init(this);
 
-        findViewById(R.id.modulButton).setOnClickListener(new View.OnClickListener() {
+        Module.init(this);
+
+        findViewById(R.id.buttonExams).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
                 info(R.string.not_supported);
             }
         });
+
+        seekli.onProgressChanged(null, 0, false);
+    }
+
+    public void loadModulInfo(){
+        // https://friedolin.uni-jena.de/qisserver/rds?state=wsearchv&search=1&subdir=veranstaltung&veranstaltung.veranstnr=15563&veranstaltung.semester=20172&P_start=0&P_anzahl=10&P.sort=&_form=display
+        // https://friedolin.uni-jena.de/qisserver/rds?state=verpublish&status=init&vmfile=no&publishid=136075&moduleCall=webInfo&publishConfFile=webInfo&publishSubDir=veranstaltung
+        // an/abmeldung: https://friedolin.uni-jena.de/qisserver/rds?state=wwrite&write=look&par=old&from=out&addParallel=136075&asi=
     }
 
     public void loginLogic(final Runnable run, final boolean onUI, Runnable onError){
@@ -623,11 +685,12 @@ public class AllManager extends AppCompatActivity {
         } return row;
     }
 
-    static final ViewGroup.LayoutParams WW = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT),
+    public static final ViewGroup.LayoutParams WW = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT),
             MW = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT),
             TRWW = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT),
             TR0W = new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT),
-            TR11 = new TableRow.LayoutParams(1, 1);
+            TR11 = new TableRow.LayoutParams(1, 1),
+            LMW = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
     @Override public void onResume(){
         super.onResume();

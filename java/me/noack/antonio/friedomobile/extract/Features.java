@@ -27,7 +27,7 @@ public abstract class Features {
             rowWW = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT)
                     ;
 
-    public TableRow keyValuePair2(AllManager all, View key, View val){
+    public static TableRow keyValuePair2(AllManager all, View key, View val){
         TableRow row = new TableRow(all);
 
         row.setLayoutParams(tabWW);
@@ -41,7 +41,7 @@ public abstract class Features {
         return row;
     }
 
-    public int dp2px(AllManager all, int dp) {
+    public static int dp2px(AllManager all, int dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, all.getResources().getDisplayMetrics());
     }
 }

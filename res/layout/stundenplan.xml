@@ -48,42 +48,42 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:text="Montag"/>
+                android:text="@string/montag"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:text="Dienstag"/>
+                android:text="@string/dienstag"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:text="Mittwoch"/>
+                android:text="@string/mittwoch"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:text="Donnerstag"/>
+                android:text="@string/donnerstag"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:text="Freitag"/>
+                android:text="@string/freitag"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:text="Samstag"/>
+                android:text="@string/samstag"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -91,7 +91,7 @@
                 android:gravity="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                 android:textColor="@color/colorAccent"
-                android:text="Sonntag"/>
+                android:text="@string/sonntag"/>
 
         </ViewFlipper>
 
@@ -102,7 +102,7 @@
             >
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
@@ -175,6 +175,7 @@
         android:id="@+id/stuplaKnopf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="@dimen/text_margin"

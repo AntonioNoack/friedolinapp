@@ -16,94 +16,103 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/editDateConfig"
+            android:id="@+id/editTerminConfig"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/editDateDelete"
+                android:id="@+id/editTerminDelete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorAccent"
                 android:text="@string/delete_date" />
 
             <EditText
-                android:id="@+id/editDateTitle"
+                android:id="@+id/editTerminTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:gravity="center"
                 android:inputType="textPersonName"
-                android:hint="Name"
+                android:hint="@string/name"
                 />
 
             <EditText
-                android:id="@+id/editDateDesc"
+                android:id="@+id/editTerminDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:gravity="center"
-                android:inputType="textPersonName"
-                android:hint="Beschreibung"
-                />
+                android:hint="@string/beschreibung"
+                android:inputType="textMultiLine" />
 
             <EditText
-                android:id="@+id/editDateStart"
+                android:id="@+id/editTerminDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="Start"
+                android:hint="@string/datum"
+                android:inputType="date" />
+            <!-- android:visibility="gone" -->
+
+            <EditText
+                android:id="@+id/editTerminStart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/start"
                 android:inputType="time" />
 
             <EditText
-                android:id="@+id/editDateEnd"
+                android:id="@+id/editTerminEnd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="Ende"
+                android:hint="@string/ende"
                 android:inputType="time"/>
 
             <EditText
-                android:id="@+id/editDateRow"
+                android:id="@+id/editTerminRow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="Zeile, 1-4"
+                android:hint="@string/slot_1_4"
                 android:inputType="number" />
 
             <SeekBar
-                android:id="@+id/editDateH"
+                android:id="@+id/editTerminH"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:max="1000"
                 android:progress="40" />
 
             <SeekBar
-                android:id="@+id/editDateS"
+                android:id="@+id/editTerminS"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:max="1000"
                 android:progress="300" />
 
             <SeekBar
-                android:id="@+id/editDateV"
+                android:id="@+id/editTerminV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:max="1000"
                 android:progress="900" />
 
             <CheckBox
-                android:id="@+id/editDateAll"
+                android:id="@+id/editTerminAll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/apply_all" />
 
             <Button
-                android:id="@+id/editDateSave"
+                android:id="@+id/editTerminSave"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorAccent"

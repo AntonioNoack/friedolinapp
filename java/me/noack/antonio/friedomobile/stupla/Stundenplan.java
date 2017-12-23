@@ -21,7 +21,9 @@ import java.util.Map;
 import me.noack.antonio.friedomobile.AllManager;
 import me.noack.antonio.friedomobile.NotLoggedInException;
 import me.noack.antonio.friedomobile.R;
+import me.noack.antonio.friedomobile.extract.live.LiveExtractor;
 import me.noack.antonio.friedomobile.extract.live.StundenplanExtractor;
+import me.noack.antonio.friedomobile.html.connection.ConnectionType;
 
 /**
  * Created by antonio on 28.11.2017
@@ -33,7 +35,7 @@ public class Stundenplan {
 
     public static void load(AllManager all, String date, SharedPreferences pref){
         // https://friedolin.uni-jena.de/qisserver/rds?state=wplan&act=show&show=plan&P.subc=plan&navigationPosition=functions%2Cschedule&breadcrumb=schedule&topitem=functions&subitem=schedule
-        all.liveEx.work(all, new StundenplanExtractor(true, pref, date), "https://friedolin.uni-jena.de/qisserver/rds?state=wplan&act=show&show=plan&P.subc=plan&navigationPosition=functions%2Cschedule&breadcrumb=schedule&topitem=functions&subitem=schedule", true);
+        all.liveEx.work(all, new StundenplanExtractor(true, pref, date), "https://friedolin.uni-jena.de/qisserver/rds?state=wplan&act=show&show=plan&P.subc=plan&navigationPosition=functions%2Cschedule&breadcrumb=schedule&topitem=functions&subitem=schedule", ConnectionType.LOGGED_IN);
     }
 
     public static void load(String date, AllManager all, SharedPreferences pref){
@@ -59,9 +61,6 @@ public class Stundenplan {
     private static boolean inited = false;
     public static void init(final AllManager all, final SharedPreferences pref){
         if(inited) return;
-
-        TerminPlan.height = all.getResources().getDimensionPixelSize(R.dimen.stuplaHeight);
-        TerminPlan.multiply = all.getResources().getDimensionPixelSize(R.dimen.stuplaMultiply);
 
         // wir brauchen ein Force-Reload und ein Cache-Dingens...
         // wenn ein Eintrag in der Datenbank für heute drinnen steht, wird er geladen
@@ -128,7 +127,7 @@ public class Stundenplan {
             all.login(new Runnable() {
                 @Override public void run() {
                     all.liveEx.work(all, new StundenplanExtractor(false, all.pref, key),
-                            "https://friedolin.uni-jena.de/qisserver/rds?state=wplan&act=&pool=&show=plan&P.vx=kurz&week="+key+"&submit=anzeigen", run, true);
+                            "https://friedolin.uni-jena.de/qisserver/rds?state=wplan&act=&pool=&show=plan&P.vx=kurz&week="+key+"&submit=anzeigen", run, ConnectionType.LOGGED_IN);
                 }
             }, false, null);
         } else run.run();

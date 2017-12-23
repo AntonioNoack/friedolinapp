@@ -1,4 +1,4 @@
-package me.noack.antonio.friedomobile.html;
+package me.noack.antonio.friedomobile.html.connection;
 
 import android.content.SharedPreferences;
 
@@ -16,6 +16,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 import me.noack.antonio.friedomobile.AllManager;
 import me.noack.antonio.friedomobile.R;
+import me.noack.antonio.friedomobile.html.HTMLInterpreter;
 
 /**
  * 16.12.2017, Erkenntnis und zum beim nächsten Mal angucken:
@@ -175,6 +176,7 @@ public class LoggedConnection {
     }
 
     public HttpsURLConnection get(AllManager all, String url) throws IOException {
+        if(!url.startsWith("http")) url = HTMLInterpreter.mainURL+url;
 
         boolean ok = true;
 

@@ -25,9 +25,9 @@
     <string name="chose_roomtype">Chose Room Type</string>
     <string name="suche_starten">Start Search</string>
     <string name="map">Map</string>
-    <string name="back">Zurück</string>
+    <string name="back">Go Back</string>
     <string name="today_change">Heute / Ändern</string>
-    <string name="suche">Suche</string>
+    <string name="suche">Search</string>
     <string name="welcome">Welcome @name! (@rolle)</string>
     <string name="force_refresh">Force Refresh</string>
     <string name="loginPlease">Please LogIn first!</string>
@@ -45,4 +45,25 @@
     <string name="fortschritt">Progress</string>
     <string name="exams">Exams</string>
     <string name="well">... Well ...</string>
+    <string name="gonnaLogIn">Trying to log in...</string>
+    <string name="partytitle">The list for partys, groups, celebrations etc.\n100% unofficially!</string>
+    <string name="create_party">Create Party!</string>
+    <string name="datum">Date</string>
+    <string name="beschreibung">Description</string>
+    <string name="slot_1_4">Slot, 1-4</string>
+    <string name="start">Start</string>
+    <string name="ende">End</string>
+    <string name="neue_party">Edit Party</string>
+    <string name="choose_party">Choose Party Slot</string>
+    <string name="adresse">Address</string>
+    <string name="in_allem">Everywhere, Notice: the list is not complete!</string>
+    <string name="montag">Monday</string>
+    <string name="dienstag">Tuesday</string>
+    <string name="mittwoch">Wednesday</string>
+    <string name="donnerstag">Thursday</string>
+    <string name="freitag">Friday</string>
+    <string name="samstag">Saturday</string>
+    <string name="sonntag">Sunday</string>
+    <string name="veranstaltungs_id">Veranstaltungs-ID</string>
+    <string name="semester">Semester</string>
 </resources>

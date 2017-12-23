@@ -1,11 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/modulKatalogSite">
 
-    <TextView
-        android:id="@+id/textView3"
+    <Button
+        android:id="@+id/back015"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Modulkataloge" />
+        android:background="@color/colorPrimary"
+        android:text="@string/back_to_main" />
+
+    <EditText
+        android:id="@+id/modulKatalogID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/veranstaltungs_id"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/modulKatalogSm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/semester"
+        android:inputType="time" />
+
+    <Button
+        android:id="@+id/modulKatalogStart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:text="@string/suche_starten" />
+
 </LinearLayout>

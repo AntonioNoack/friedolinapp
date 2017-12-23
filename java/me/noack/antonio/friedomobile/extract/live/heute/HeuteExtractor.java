@@ -1,9 +1,10 @@
-package me.noack.antonio.friedomobile.extract.live;
+package me.noack.antonio.friedomobile.extract.live.heute;
 
 import android.view.ViewGroup;
 
 import me.noack.antonio.friedomobile.AllManager;
 import me.noack.antonio.friedomobile.extract.TerminFeatures;
+import me.noack.antonio.friedomobile.extract.live.OnceExtractor;
 import me.noack.antonio.friedomobile.html.HTMLDocument;
 import me.noack.antonio.friedomobile.html.HTMLElement;
 
